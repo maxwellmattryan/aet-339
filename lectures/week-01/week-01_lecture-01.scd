@@ -56,6 +56,7 @@
 0.5.ampdb
 0.75.ampdb
 -60.dbamp
+0.ampdb
 
 //quick random numbers
 100.xrand  //return a random number between 0 and 99
@@ -93,7 +94,7 @@ $\t.post;$A.post;$\t.post;$B.post;$\n.post;$\t.post;$C.postln;
 
 
 
-//Strings (character(s) contained within double-quotes)
+//Strings (character(s) contained within double quotes)
 "Hello!".class  //explain yourself
 "2" //not at all the same thing as 2 (an integer)
 "Most characters are OK, but a \\ signifies \n something \t special!\n".post
