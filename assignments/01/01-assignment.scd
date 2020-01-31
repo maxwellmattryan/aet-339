@@ -37,8 +37,24 @@ a = {
 // shape, then insert it into your function.)
 
 (
-b = {
+e = Env.new(
+	levels: [0.0, 1.0, 0.4, 0.0],
+	times: [0.01, 0.3, 0.5],
+	curve: \lin
+);
+)
 
+Window.closeAll();
+
+(
+f = {
+	arg amp=0.5, freq=440.0;
+	var sig, env;
+	env = EnvGen.kr(
+		envelope: e,
+		doneAction: 2
+	);
+	sig = Saw.ar(freq: freq, mul: amp)!2;
 }.play();
 )
 
