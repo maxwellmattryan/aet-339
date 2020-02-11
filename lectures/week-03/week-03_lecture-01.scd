@@ -20,6 +20,8 @@ x = {
 }.play();
 )
 
+
+
 (
 y = {
 	// argument declarations
@@ -29,7 +31,7 @@ y = {
 	var c_freq, sig, offset;
 
 	// initialize offset variable
-	offset = LFNoise1.ar(2!4).range(-0.1, 0.1).midiratio();
+	offset = LFNoise2.ar(1!6).range(-0.1, 0.1).midiratio();
 	offset.poll();
 
 	// modulate frequency with LFNoise1
