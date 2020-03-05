@@ -1,7 +1,9 @@
 // BUFFERS
 
-// stereo file
-c = Buffer.read(server: s, path: "C:/Users/Matt/Documents/School/2020/Spring/aet-339/lectures/week-04/sounds/bowl.wav");
+~folderPath = PathName.new(thisProcess.nowExecutingPath).parentPath;
+c = Buffer.read(server: s, path: ~folderSounds ++ "sounds/bowl.wav");
+
+// **CAUTION** : '++' operator is a concatenation operator where '+' will add a space between two strings
 c.play();
 
 // removes all instantiated buffers
@@ -20,20 +22,25 @@ PlayBuf.ar(b.numChannels(), b.bufnum(), 1.0, doneAction: 2);
 
 // ** CAUTION: Do not initialize / load buffer in the synth def declaration **
 
-b = Buffer.read(server: s, path: "C:/Users/Matt/Documents/School/2020/Spring/aet-339/lectures/week-04/sounds/glass.wav");
+b = Buffer.read(server: s, path: ~folderPath ++ "sounds/glass.wav");
 
 (
 SynthDef.new("OneShot", {
-	arg gain = 0.5, rate = 1.0, startPos = 0;
+	arg buf, gain = 0.5, rate = 1.0, startPos = 0, pan = 0.0;
 	var sig;
 	sig = PlayBuf.ar(
 		numChannels: 1,
-		bufnum: b,
-		rate: rate,
+		bufnum: buf,
+		rate: BufRateScale.kr(buf) * rate,
 		startPos: startPos,
 		doneAction: 2
 	);
+
+	// apply gain multiplier
 	sig = sig * gain;
+
+	// -1.0f <= pan <= 1.0f
+	sig = Pan2.ar(in: sig, pos: pan);
 	Out.ar(0, sig)
 }).add();
 )
@@ -42,10 +49,11 @@ SynthDef.new("OneShot", {
 Synth.new(
 	"OneShot",
 	[
+		\buf, b,
 		\gain, exprand(0.5, 1.6),
 		\rate, rrand(0.5, 2.0),
-		\startPos, rrand(0.0, (b.numFrames() * 0.2));
-
+		\startPos, rrand(0.0, (b.numFrames() * 0.2)),
+		\pan, -1.0
 	]
 );
 )
