@@ -32,8 +32,6 @@ SynthDef(\noise,{
 Synth(\tone);
 Synth(\noise);
 
-
-
 //QUESTION 1. Create a Pbind for each of the SynthDefs above incorporating the 'rest' notation learned in class.
 
 //1a. \tone Pbind:
